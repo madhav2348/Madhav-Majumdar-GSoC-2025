@@ -23,15 +23,21 @@ class _ScreenState extends State<Screen> {
     }
   }
 
-  void restore(bool value) {
-    isAdded.fillRange(0, isAdded.length, value);
+  void restore() {
+    isAdded.fillRange(0, isAdded.length, false);
   }
 
-  void sendKML(KML kml, String location) async {
+  void sendKML(KML kml, String location, int listId) async {
     try {
       await _lg.sendKml(kml);
       await _lg.flyTo(location);
+      setState(() {
+        isAdded[listId] = true;
+      });
     } catch (e) {
+      setState(() {
+        isAdded[listId] = true;
+      });
       throw Exception(e);
     }
   }
@@ -39,9 +45,13 @@ class _ScreenState extends State<Screen> {
   void sendLogo() async {
     try {
       await _lg.sendToLG();
-      isAdded[0] = true;
+      setState(() {
+        isAdded[0] = true;
+      });
     } catch (e) {
-      isAdded[0] = false;
+      setState(() {
+        isAdded[0] = false;
+      });
 
       throw Exception(e);
     }
@@ -50,7 +60,14 @@ class _ScreenState extends State<Screen> {
   void clearLogo() async {
     try {
       await _lg.clearSlave('3');
+      setState(() {
+        isAdded[0] = false;
+      });
     } catch (e) {
+      setState(() {
+        isAdded[0] = true;
+      });
+
       throw Exception(e);
     }
   }
@@ -58,6 +75,11 @@ class _ScreenState extends State<Screen> {
   void clearKML() async {
     try {
       await _lg.clearKml();
+      setState(() {
+        setState(() {
+          restore();
+        });
+      });
     } catch (e) {
       throw Exception(e);
     }
@@ -69,7 +91,6 @@ class _ScreenState extends State<Screen> {
   List<bool> get restoreDefault => [...isAdded];
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     connection();
   }
@@ -217,6 +238,7 @@ class _ScreenState extends State<Screen> {
                         sendKML(
                           KML('SEND_KML_1', content: kml1, id: '111'),
                           kml1location,
+                          1,
                         );
                       },
                       label: Text('Send KML 1', style: TextStyle(fontSize: 18)),
@@ -261,6 +283,7 @@ class _ScreenState extends State<Screen> {
                         sendKML(
                           KML('SEND_KML_2', content: kml2, id: '222'),
                           kml2location,
+                          2,
                         );
                       },
                       label: Text('Send KML 2', style: TextStyle(fontSize: 18)),
