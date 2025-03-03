@@ -91,9 +91,8 @@ String name;
         <color>7d00f0f0</color>
       </PolyStyle>
     </Style>
-            <name>Network Links</name>
-          <visibility>0</visibility>
-          <open>0</open>
+          <name>Network Links</name>
+          <visibility>1</visibility>
           <description>Network Example</description>
       <name>$name</name>
         $content

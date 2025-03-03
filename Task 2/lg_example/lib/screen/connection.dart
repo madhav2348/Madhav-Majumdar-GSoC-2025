@@ -48,10 +48,7 @@ class _ConnectionPageState extends State<ConnectionPage> {
 
   onSubmit(String user, String pass, String ip, String port) async {
     // Navigator.pop(context);
-    try {
       await SharedPref.setData(user, pass, ip, port, true);
-
-
       showDialog(
         context: context,
         builder: (context) {
@@ -71,9 +68,7 @@ class _ConnectionPageState extends State<ConnectionPage> {
       widget.connection(_lg.establish);
       Navigator.pop(context);
 
-    } catch (e) {
-      throw Exception(e);
-    }
+  
   }
 
   @override
@@ -81,10 +76,20 @@ class _ConnectionPageState extends State<ConnectionPage> {
     super.initState();
     _getPersistence();
   }
+  @override
+  void dispose(){
+    super.dispose();
+    _ip.dispose();
+    _pass.dispose();
+    _port.dispose();
+    _user.dispose();
+
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Center(
         child: SizedBox(
           child: Padding(

@@ -1,42 +1,6 @@
-const dummylocation = '<LookAt><longitude>-122.08394166666666</longitude><latitude>37.422374999999995</latitude><altitude>0</altitude><range>0</range><tilt>40</tilt><heading>0</heading><gx:altitudeMode>relativeToGround</gx:altitudeMode></LookAt>';
-
-const dummy = '''
-          <Placemark>
-          <Polygon>
-            <extrude>1</extrude>
-            <altitudeMode>relativeToGround</altitudeMode>
-            <outerBoundaryIs>
-              <LinearRing>
-                <coordinates> -122.0848938459612,37.42257124044786,17
-                  -122.0849580979198,37.42211922626856,17
-                  -122.0847469573047,37.42207183952619,17
-                  -122.0845725380962,37.42209006729676,17
-                  -122.0845954886723,37.42215932700895,17
-                  -122.0838521118269,37.42227278564371,17
-                  -122.083792243335,37.42203539112084,17
-                  -122.0835076656616,37.42209006957106,17
-                  -122.0834709464152,37.42200987395161,17
-                  -122.0831221085748,37.4221046494946,17
-                  -122.0829247374572,37.42226503990386,17
-                  -122.0829339169385,37.42231242843094,17
-                  -122.0833837359737,37.42225046087618,17
-                  -122.0833607854248,37.42234159228745,17
-                  -122.0834204551642,37.42237075460644,17
-                  -122.083659133885,37.42251292011001,17
-                  -122.0839758438952,37.42265873093781,17
-                  -122.0842374743331,37.42265143972521,17
-                  -122.0845036949503,37.4226514386435,17
-                  -122.0848020460801,37.42261133916315,17
-                  -122.0847882750515,37.42256395055121,17
-                  -122.0848938459612,37.42257124044786,17 </coordinates>
-              </LinearRing>
-            </outerBoundaryIs>
-          </Polygon>
-          </Placemark>
-''';
 
 const kml1 = ''' 
-
+    <open>1</open>
     <Folder>
         <name>Google Campus</name>
         <description>A collection showing how easy it is to create 3-dimensional
@@ -193,7 +157,8 @@ const kml1 = '''
 const kml1location ='<LookAt><longitude>-122.084120030116</longitude><latitude>37.42174011925477</latitude><altitude>0</altitude><heading>-34.82469740081282</heading><tilt>53.454348562403</tilt><range>276.7870053764046</range></LookAt>';
 
 const kml2 = '''
-<Folder>
+        <open>1</open>
+        <Folder>
         <name>Extruded Polygon</name>
         <description>A simple way to model a building</description>
         <Placemark>
@@ -236,3 +201,45 @@ const kml2 = '''
 ''';
 
 const kml2location ='  <LookAt><longitude>-77.05580139178142</longitude><latitude>38.870832443487</latitude><heading>59.88865561738225</heading><tilt>48.09646074797388</tilt><range>742.0552506670548</range></LookAt>';
+
+
+
+
+
+const dummylocation = '<LookAt><longitude>-122.08394166666666</longitude><latitude>37.422374999999995</latitude><altitude>0</altitude><range>0</range><tilt>40</tilt><heading>0</heading><gx:altitudeMode>relativeToGround</gx:altitudeMode></LookAt>';
+
+const dummy = '''
+          <open>1</open>
+          <Placemark>
+          <Polygon>
+            <extrude>1</extrude>
+            <altitudeMode>relativeToGround</altitudeMode>
+            <outerBoundaryIs>
+              <LinearRing>
+                <coordinates> -122.0848938459612,37.42257124044786,17
+                  -122.0849580979198,37.42211922626856,17
+                  -122.0847469573047,37.42207183952619,17
+                  -122.0845725380962,37.42209006729676,17
+                  -122.0845954886723,37.42215932700895,17
+                  -122.0838521118269,37.42227278564371,17
+                  -122.083792243335,37.42203539112084,17
+                  -122.0835076656616,37.42209006957106,17
+                  -122.0834709464152,37.42200987395161,17
+                  -122.0831221085748,37.4221046494946,17
+                  -122.0829247374572,37.42226503990386,17
+                  -122.0829339169385,37.42231242843094,17
+                  -122.0833837359737,37.42225046087618,17
+                  -122.0833607854248,37.42234159228745,17
+                  -122.0834204551642,37.42237075460644,17
+                  -122.083659133885,37.42251292011001,17
+                  -122.0839758438952,37.42265873093781,17
+                  -122.0842374743331,37.42265143972521,17
+                  -122.0845036949503,37.4226514386435,17
+                  -122.0848020460801,37.42261133916315,17
+                  -122.0847882750515,37.42256395055121,17
+                  -122.0848938459612,37.42257124044786,17 </coordinates>
+              </LinearRing>
+            </outerBoundaryIs>
+          </Polygon>
+          </Placemark>
+''';

@@ -283,7 +283,7 @@ class _ScreenState extends State<Screen> {
                         sendKML(
                           KML('SEND_KML_2', content: kml2, id: '222'),
                           kml2location,
-                          2,
+                          2,              
                         );
                       },
                       label: Text('Send KML 2', style: TextStyle(fontSize: 18)),

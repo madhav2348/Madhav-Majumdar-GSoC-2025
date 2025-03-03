@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:lg_example/model/kml.dart';
 import 'package:lg_example/model/kml_send.dart';
+import 'package:lg_example/service/shared_pref.dart';
 import 'package:lg_example/service/ssh_service.dart';
 import 'package:lg_example/showtoast.dart';
 
@@ -17,6 +18,8 @@ class LGConnection {
     try {
       await ssh.connectToserver();
       await sendKMLToSlave(3, SendKML.sendlogo('slave_3'));
+      // await sendKMLToSlave(3, SendKML.sendClear('slave_3'));
+
 
       showToast('Logo Sended');
     } catch (e) {
@@ -32,6 +35,7 @@ class LGConnection {
       await ssh.execute(
         'echo \'$content\' > /var/www/html/kml/slave_$screen.kml',
       );
+      await setRefresh();
     } catch (e) {
       showToast('Something went wrong $e');
       throw Exception();
@@ -63,6 +67,29 @@ class LGConnection {
 
 
 
+  setRefresh() async {
+     final _data = await SharedPref.getData();
+    final _passwordOrKey = _data['pass']!;
+    //  final _client = await ssh.connectToserver();
+try{
+
+    for (var i = 2; i <= 3; i++) {
+      String search = '<href>##LG_PHPIFACE##kml\\/slave_$i.kml<\\/href>';
+      String replace = '<href>##LG_PHPIFACE##kml\\/slave_$i.kml<\\/href><refreshMode>onInterval<\\/refreshMode><refreshInterval>2<\\/refreshInterval>';
+
+      await ssh.execute(
+          'sshpass -p $_passwordOrKey ssh -t lg$i \'echo $_passwordOrKey |sudo -S sed -i "s/$replace/$search/"~/earth/kml/slave/myplaces.kml\'');
+      await ssh.execute(
+          'sshpass -p $_passwordOrKey ssh -t lg$i \'echo $_passwordOrKey | sudo -S sed -i "s/$search/$replace/" ~/earth/kml/slave/myplaces.kml\'');
+    }
+    showToast('Refreshing....');
+}catch(e){
+  throw Exception(e);
+}
+ }
+
+
+
   
  
   Future<void> clearSlave(String screen) async {
@@ -71,7 +98,9 @@ class LGConnection {
     try {
       await ssh.connectToserver();
       await ssh.execute("echo '$kml' > /var/www/html/kml/slave_$screen.kml");
+      // await ssh.execute("rm /var/www/html/kml/slave_$screen.kml");
       showToast('Clear Logo');
+      showToast('Logo Clear');
     } catch (e) {
       // ignore: avoid_print
       print(e);
