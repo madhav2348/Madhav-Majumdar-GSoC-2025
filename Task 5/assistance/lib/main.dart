@@ -50,6 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _start() async {
+    onClick();
     if (await _audioRecorder.hasPermission()) {
       const encoder = AudioEncoder.aacEld;
       if (!await _audioRecorder.isEncoderSupported(encoder)) {
@@ -108,6 +109,37 @@ class _MyHomePageState extends State<MyHomePage> {
   //   }
   // }
 
+  Future<void> onClick() async {
+    bool? result = await showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return SizedBox(
+          width: 350,
+          height: 500,
+          child: RiveAnimation.asset(
+            'assets/assist.riv',
+            artboard: 'Main',
+            // stateMachines: ['State Machine 1'],
+            speedMultiplier: _changeValue,
+            fit: BoxFit.contain,
+            onInit: (artboard) {
+              StateMachineController controller =
+                  StateMachineController.fromArtboard(
+                    artboard,
+                    'State Machine 1',
+                  )!;
+              _boo = controller.findInput('Boolean 1') as SMIBool;
+              _levelInput = controller.findInput('Number') as SMINumber;
+            },
+          ),
+        );
+      },
+    );
+    if (result == null) {
+      return _start();
+    }
+  }
+
   @override
   void initState() {
     // _onInit();
@@ -128,30 +160,6 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           children: [
-            GestureDetector(
-              onTap: _start,
-              child: SizedBox(
-                width: 350,
-                height: 500,
-                child: RiveAnimation.asset(
-                  'assets/assist.riv',
-                  artboard: 'Artboard',
-                  // stateMachines: ['State Machine 1'],
-                  // speedMultiplier: _changeValue,
-                  fit: BoxFit.contain,
-                  onInit: (artboard) {
-                    StateMachineController controller =
-                        StateMachineController.fromArtboard(
-                          artboard,
-                          'State Machine 1',
-                        )!;
-                    _boo = controller.findInput('Boolean 1') as SMIBool;
-                    _levelInput = controller.findInput('Number') as SMINumber;
-                  },
-                ),
-              ),
-            ),
-
             SizedBox(width: 15),
             SizedBox(
               width: 100,
