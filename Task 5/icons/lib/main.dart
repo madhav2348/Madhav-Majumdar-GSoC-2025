@@ -7,7 +7,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -36,12 +35,12 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: <Widget>[
             SizedBox(
               width: 350,
               height: 500,
               child: RiveAnimation.asset(
-                'assets/pogress.riv',
+                'assets/tab_.riv',
 
                 // artboard: 'Main',
                 stateMachines: ['State Machine 1'],

@@ -16,19 +16,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -37,7 +34,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final AudioRecorder _audioRecorder = AudioRecorder();
   bool is_start = false;
-  double _changeValue = 1;
+  double _changeValue = 0.5;
   // StateMachineController? _controller;
 
   Artboard? _riveArtboard;
@@ -50,7 +47,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _start() async {
-    onClick();
     if (await _audioRecorder.hasPermission()) {
       const encoder = AudioEncoder.aacEld;
       if (!await _audioRecorder.isEncoderSupported(encoder)) {
@@ -65,9 +61,8 @@ class _MyHomePageState extends State<MyHomePage> {
             setState(() {
               _changeValue = convertDbToRange(amp.current);
               print('${convertDbToRange(amp.current)}');
-              _levelInput!.value = convertDbToRange(amp.current);
-              _boo!.change(!is_start);
-              print(_levelInput);
+              // _levelInput!.value = convertDbToRange(amp.current);
+              // _boo!.change(!is_start);
             });
           });
     }
@@ -77,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
     await _audioRecorder.stop();
     _audioRecorder.dispose();
     setState(() {
-      _changeValue = 1;
+      _changeValue = 0.5;
     });
   }
 
@@ -109,47 +104,6 @@ class _MyHomePageState extends State<MyHomePage> {
   //   }
   // }
 
-  Future<void> onClick() async {
-    bool? result = await showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return SizedBox(
-          width: 350,
-          height: 500,
-          child: RiveAnimation.asset(
-            'assets/assist.riv',
-            artboard: 'Main',
-            // stateMachines: ['State Machine 1'],
-            speedMultiplier: _changeValue,
-            fit: BoxFit.contain,
-            onInit: (artboard) {
-              StateMachineController controller =
-                  StateMachineController.fromArtboard(
-                    artboard,
-                    'State Machine 1',
-                  )!;
-              _boo = controller.findInput('Boolean 1') as SMIBool;
-              _levelInput = controller.findInput('Number') as SMINumber;
-            },
-          ),
-        );
-      },
-    );
-    if (result == null) {
-      return _start();
-    }
-  }
-
-  @override
-  void initState() {
-    // _onInit();
-    print('stsrt');
-
-    print('222st00');
-    super.initState();
-    print('33t');
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -165,7 +119,6 @@ class _MyHomePageState extends State<MyHomePage> {
               width: 100,
               height: 100,
               child: ElevatedButton(
-                // onPressed: () => _stopRecording(),
                 onPressed: () {
                   setState(() {
                     is_start = !is_start;
@@ -176,6 +129,17 @@ class _MyHomePageState extends State<MyHomePage> {
                     is_start == true
                         ? const Icon(Icons.play_arrow, size: 50)
                         : const Icon(Icons.pause, size: 50),
+              ),
+            ),
+            SizedBox(
+              width: 500,
+              height: 500,
+              child: RiveAnimation.asset(
+                'assets/assistance2.riv',
+                // artboard: 'Artboard',
+                // stateMachines: ['State Machine 1'],
+                speedMultiplier: _changeValue,
+                fit: BoxFit.contain,
               ),
             ),
           ],

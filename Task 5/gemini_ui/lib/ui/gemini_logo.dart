@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rive/math.dart';
+// import 'package:rive/math.dart';
 import 'package:rive/rive.dart';
 
 // // class GeminiLogo extends StatefulWidget {
@@ -35,13 +35,11 @@ import 'package:rive/rive.dart';
 // //     _tapTrigger?.fire();
 // //   }
 
-  
 // //   @override
 // //   void initState() {
 // //     super.initState();
 // //     _loadRiveFile();
 // //   }
-
 
 // //   @override
 // //   Widget build(BuildContext context) {
@@ -57,7 +55,6 @@ import 'package:rive/rive.dart';
 // //     );
 // //   }
 // // }
-
 
 // import 'package:flutter/material.dart';
 // import 'package:rive/rive.dart';
@@ -110,13 +107,11 @@ import 'package:rive/rive.dart';
 
 //   }
 
-  
 //   // @override
 //   // void initState() {
 //   //   super.initState();
 //   //   _loadRiveFile();
 //   // }
-
 
 //   @override
 //   Widget build(BuildContext context) {
@@ -125,7 +120,7 @@ import 'package:rive/rive.dart';
 //         child: GestureDetector(
 //           // onTap: _onTap,
 //           onTap:()=> _controller.isActive,
-         
+
 //           child:  RiveAnimation.asset('assets/gemini.riv' ,controllers: [_controller],),
 //         ),
 //       ),
@@ -133,69 +128,61 @@ import 'package:rive/rive.dart';
 //   }
 // }
 
-
-
 class GeminiLogo extends StatefulWidget {
-const GeminiLogo({super.key});
+  const GeminiLogo({super.key});
 
-@override
-State<GeminiLogo> createState() => _GeminiLogoState();
+  @override
+  State<GeminiLogo> createState() => _GeminiLogoState();
 }
 
 class _GeminiLogoState extends State<GeminiLogo> {
-late StateMachineController _controller;
+  late StateMachineController _controller;
 
-@override
-void initState() {
+  @override
+  void initState() {
     super.initState();
-}
+  }
 
-String ratingValue = 'Rating: 0';
+  String ratingValue = 'Rating: 0';
 
-void onInit(Artboard artboard) async {
+  void onInit(Artboard artboard) async {
     _controller =
         StateMachineController.fromArtboard(artboard, 'State Machine 1')!;
     artboard.addController(_controller);
 
     _controller.addEventListener(onRiveEvent);
-}
+  }
 
-void onRiveEvent(RiveEvent event) {
+  void onRiveEvent(RiveEvent event) {
     // Access custom properties defined on the event
     var rating = event.properties['rating'] as double;
     // Schedule the setState for the next frame, as an event can be
     // triggered during a current frame update
     WidgetsBinding.instance.addPostFrameCallback((_) {
-    setState(() {
+      setState(() {
         ratingValue = '$rating';
+      });
     });
-    });
-}
+  }
 
-@override
-void dispose() {
+  @override
+  void dispose() {
     _controller.removeEventListener(onRiveEvent);
     _controller.dispose();
     super.dispose();
-}
+  }
 
-@override
-Widget build(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-    appBar: AppBar(
-        title: const Text('Gemini Logo'),
-    ),
-    body: Column(
+      appBar: AppBar(title: const Text('Gemini Logo')),
+      body: Column(
         children: [
-        Expanded(
-            child: RiveAnimation.asset(
-            'assets/gemini.riv',
-            onInit: onInit,
-            ),
-        ),
-        
+          Expanded(
+            child: RiveAnimation.asset('assets/gemini.riv', onInit: onInit),
+          ),
         ],
-    ),
+      ),
     );
-}
+  }
 }

@@ -1,4 +1,4 @@
-name: assistance
+name: icons
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.7.0
+  sdk: ^3.7.2
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -34,10 +34,6 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
-  flutter_sound: ^9.24.4
-  audio_session: ^0.1.25
-  permission_handler: ^11.4.0
-  record: ^5.2.1
   rive: ^0.13.20
 
 dev_dependencies:
@@ -64,13 +60,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-
-    # - assets/assistancee.riv
-    - assets/assistance.riv
-    - assets/assistance3.riv
-    - assets/assistance2.riv
-    # - assets/google_assistance.riv
-
+    - assets/tab_.riv
+  #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
